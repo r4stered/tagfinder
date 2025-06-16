@@ -243,7 +243,7 @@ SpacesInParensOptions:
   InEmptyParentheses: false
   Other:           false
 SpacesInSquareBrackets: false
-Standard:        c++23
+Standard:        c++20
 TabWidth:        8
 UseTab:          Never
 ...
