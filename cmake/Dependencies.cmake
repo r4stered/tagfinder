@@ -16,3 +16,10 @@ FetchContent_Declare(
     GIT_TAG        11.2.0
 )
 FetchContent_MakeAvailable(fmt)
+
+FetchContent_Declare(
+    stb
+    GIT_REPOSITORY https://github.com/nothings/stb.git
+    GIT_TAG master  # Pin to specific commit
+)
+FetchContent_MakeAvailable(stb)

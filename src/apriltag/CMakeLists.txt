@@ -11,12 +11,16 @@ set_target_properties(apriltag PROPERTIES
     OUTPUT_NAME tagfinder-apriltag
 )
 
+message(STATUS "stb_SOURCE_DIR: ${stb_SOURCE_DIR}")
+
 target_include_directories(apriltag
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
+    SYSTEM PUBLIC
+        $<BUILD_INTERFACE:${stb_SOURCE_DIR}>
 )
 
 target_link_libraries(apriltag

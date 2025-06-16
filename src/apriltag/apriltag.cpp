@@ -1,30 +1,25 @@
 #include "apriltag/apriltag.hpp"
-#include <fmt/format.h>
-#include <stdexcept>
+#include "fmt/base.h"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 namespace apriltag {
+Image::Image(std::string_view filePath) {
+  fmt::print("Loading image from path: {}\n", filePath);
 
-int Calculator::add(int a, int b) {
-  return a + b;
-}
-
-int Calculator::subtract(int a, int b) {
-  return a - b;
-}
-
-int Calculator::multiply(int a, int b) {
-  return a * b;
-}
-
-double Calculator::divide(int a, int b) {
-  if (b == 0) {
-    throw std::invalid_argument("Division by zero");
+  imageData = stbi_load(filePath.data(), &width, &height, &channels, 0);
+  if (imageData != nullptr) {
+    fmt::print("Loaded image! Width: {} Height: {}, Channels: {}\n", width,
+               height, channels);
+  } else {
+    fmt::print("Oh no! Couldn't load image :(");
   }
-  return static_cast<double>(a) / static_cast<double>(b);
 }
 
-std::string get_version() {
-  return fmt::format("AprilTag version {}.{}.{}", 0, 0, 1);
+Image::~Image() {
+  if (imageData != nullptr) {
+    stbi_image_free(imageData);
+  }
 }
-
 }  // namespace apriltag

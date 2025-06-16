@@ -1,17 +1,17 @@
 #pragma once
 
-#include <string>
+#include <string_view>
 
 namespace apriltag {
+class Image {
+ public:
+  Image(std::string_view filePath);
+  virtual ~Image();
 
-class Calculator {
-public:
-    int add(int a, int b);
-    int subtract(int a, int b);
-    int multiply(int a, int b);
-    double divide(int a, int b);
+ private:
+  unsigned char* imageData{nullptr};
+  int width;
+  int height;
+  int channels;
 };
-
-std::string get_version();
-
-} // namespace apriltag
+}  // namespace apriltag
