@@ -1,1 +1,1 @@
-build/debug/_deps
+*:build/debug/_deps*
