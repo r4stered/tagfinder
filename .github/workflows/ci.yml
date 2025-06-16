@@ -119,6 +119,13 @@ jobs:
             -DENABLE_CLANG_TIDY=ON \
             -DENABLE_CPPCHECK=ON
 
+      - name: Find and Replace
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "REPLACEME"
+          replace: "*:${{ github.workspace }}/build/_deps/*"
+          include: "**CppCheckSuppressions.txt"
+
       - name: Build with Static Analysis
         run: cmake --build build 2>&1 | tee static_analysis.log
 
