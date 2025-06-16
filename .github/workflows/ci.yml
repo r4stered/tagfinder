@@ -155,5 +155,5 @@ jobs:
 
       - name: Test with Valgrind
         run: |
-          cd build
+          cd build/bin
           valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --error-exitcode=1 ./tests/apriltag_tests
