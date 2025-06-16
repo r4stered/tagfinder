@@ -24,7 +24,7 @@ double Calculator::divide(int a, int b) {
 }
 
 std::string get_version() {
-    return fmt::format("Apriltag version {}.{}.{}", 1, 0, 0);
+    return fmt::format("AprilTag version {}.{}.{}", 0, 0, 1);
 }
 
 } // namespace apriltag
