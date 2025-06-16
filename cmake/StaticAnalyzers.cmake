@@ -14,7 +14,7 @@ if(ENABLE_CPPCHECK)
         set(CMAKE_CXX_CPPCHECK
             "${CPPCHECK_BIN}"
             "--enable=all"
-            "-i${CMAKE_BINARY_DIR}/_deps"
+            "--suppressions-list=${CMAKE_SOURCE_DIR}/CppCheckSuppressions.txt"
             "--inline-suppr"
             "--inconclusive"
         )
