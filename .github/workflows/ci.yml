@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Ninja
+      - name: Setup Ninja/CMake
         uses: lukka/get-cmake@latest 
 
       - name: Configure CMake (Unix)
@@ -67,7 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Ninja
+      - name: Setup Ninja/CMake
         uses: lukka/get-cmake@latest 
 
       - name: Configure CMake with ${{ matrix.sanitizer }} Sanitizer
@@ -100,8 +100,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@v4
+      - name: Setup Ninja/CMake
+        uses: lukka/get-cmake@latest 
 
       - name: Install tools
         run: |
@@ -133,8 +133,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Ninja
-        uses: seanmiddleditch/gha-setup-ninja@v4
+      - name: Setup Ninja/CMake
+        uses: lukka/get-cmake@latest
 
       - name: Install Valgrind
         run: |
