@@ -14,7 +14,8 @@ if(ENABLE_CPPCHECK)
         set(CMAKE_CXX_CPPCHECK
             "${CPPCHECK_BIN}"
             "--enable=all"
-            "--suppress=missingInclude"
+            "--project=${CMAKE_BINARY_DIR}/compile_commands.json"
+            "--i${CMAKE_BINARY_DIR}/_deps"
             "--inline-suppr"
             "--inconclusive"
         )
