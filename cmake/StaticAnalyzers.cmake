@@ -15,7 +15,7 @@ if(ENABLE_CPPCHECK)
             "${CPPCHECK_BIN}"
             "--enable=all"
             "--project=${CMAKE_BINARY_DIR}/compile_commands.json"
-            "--i${CMAKE_BINARY_DIR}/_deps"
+            "-i${CMAKE_BINARY_DIR}/_deps"
             "--inline-suppr"
             "--inconclusive"
         )
