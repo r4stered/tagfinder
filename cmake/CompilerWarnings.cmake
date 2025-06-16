@@ -1,7 +1,7 @@
 function(set_project_warnings target)
     set(MSVC_WARNINGS
-        /W4          # Baseline reasonable warnings
-        /permissive- # standards conformance mode for MSVC compiler.
+        /W4
+        /permissive-
     )
 
     set(CLANG_WARNINGS

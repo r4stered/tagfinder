@@ -1,6 +1,5 @@
 include(FetchContent)
 
-# Google Test
 if(ENABLE_TESTING)
     FetchContent_Declare(
         googletest
@@ -11,7 +10,6 @@ if(ENABLE_TESTING)
     FetchContent_MakeAvailable(googletest)
 endif()
 
-# fmt library
 FetchContent_Declare(
     fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
