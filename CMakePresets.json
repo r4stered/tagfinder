@@ -1,0 +1,125 @@
+{
+    "version": 10,
+    "cmakeMinimumRequired": {
+        "major": 4,
+        "minor": 0,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "debug",
+            "inherits": "base",
+            "displayName": "Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "release",
+            "inherits": "base",
+            "displayName": "Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "debug-sanitizers",
+            "inherits": "debug",
+            "displayName": "Debug with Sanitizers",
+            "cacheVariables": {
+                "ENABLE_SANITIZERS": "ON",
+                "ENABLE_SANITIZER_ADDRESS": "ON",
+                "ENABLE_SANITIZER_LEAK": "ON",
+                "ENABLE_SANITIZER_UNDEFINED_BEHAVIOR": "ON"
+            }
+        },
+        {
+            "name": "debug-static-analysis",
+            "inherits": "debug",
+            "displayName": "Debug with Static Analysis",
+            "cacheVariables": {
+                "ENABLE_STATIC_ANALYSIS": "ON",
+                "ENABLE_CLANG_TIDY": "ON",
+                "ENABLE_CPPCHECK": "ON"
+            }
+        },
+        {
+            "name": "windows-msvc-debug",
+            "inherits": "debug",
+            "displayName": "Windows MSVC Debug",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "generator": "Visual Studio 17 2022",
+            "architecture": {
+                "value": "x64",
+                "strategy": "set"
+            }
+        },
+        {
+            "name": "windows-msvc-release",
+            "inherits": "release",
+            "displayName": "Windows MSVC Release",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "generator": "Visual Studio 17 2022",
+            "architecture": {
+                "value": "x64",
+                "strategy": "set"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug",
+            "configurePreset": "debug"
+        },
+        {
+            "name": "release",
+            "configurePreset": "release"
+        },
+        {
+            "name": "debug-sanitizers",
+            "configurePreset": "debug-sanitizers"
+        },
+        {
+            "name": "debug-static-analysis",
+            "configurePreset": "debug-static-analysis"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "test-debug",
+            "configurePreset": "debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "noTestsAction": "error",
+                "stopOnFailure": true
+            }
+        },
+        {
+            "name": "test-sanitizers",
+            "configurePreset": "debug-sanitizers",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
+    ]
+}

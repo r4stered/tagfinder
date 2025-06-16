@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-release:
+    name: Build Release
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: linux
+          - os: windows-latest
+            name: windows
+          - os: macos-latest
+            name: macos
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Ninja (Unix)
+        if: matrix.os != 'windows-latest'
+        uses: seanmiddleditch/gha-setup-ninja@v4
+
+      - name: Configure CMake (Unix)
+        if: matrix.os != 'windows-latest'
+        run: |
+          cmake -B build \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DENABLE_TESTING=OFF
+
+      - name: Configure CMake (Windows)
+        if: matrix.os == 'windows-latest'
+        run: |
+          cmake -B build \
+            -G "Visual Studio 17 2022" \
+            -A x64 \
+            -DENABLE_TESTING=OFF
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Install
+        run: cmake --install build --prefix install --config Release
+
+      - name: Package
+        run: |
+          cd install
+          tar czf ../tagfinder-${{ matrix.name }}-${{ github.ref_name }}.tar.gz .
+
+      - name: Upload Release Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tagfinder-${{ matrix.name }}-${{ github.ref_name }}
+          path: tagfinder-${{ matrix.name }}-${{ github.ref_name }}.tar.gz
+
+      - name: Create Release
+        if: matrix.os == 'ubuntu-latest'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: tagfinder-*.tar.gz
+          generate_release_notes: true
